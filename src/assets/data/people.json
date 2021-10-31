@@ -100,16 +100,6 @@
     "registered": "2016-10-10T08:43:44"
   },
   {
-    "_id": 10,
-    "tableId": 10,
-    "name": "Franks Lynn",
-    "email": "frankslynn@krag.com",
-    "picture": "http://old.301-1.ru/gen-mems/img_mems/67ce7786cf69dd1fa3a9267d379b4ac4.jpg",
-    "about": "Culpa occaecat consectetur ipsum labore ad irure aute. Labore eu irure reprehenderit incididunt non minim. Labore tempor officia laboris mollit dolore sint mollit fugiat ad culpa veniam aliqua aute duis. Amet cupidatat esse eiusmod tempor tempor.\r\n",
-    "age": 26,
-    "registered": "2014-06-11T01:47:35"
-  },
-  {
     "_id": 11,
     "tableId": 11,
     "name": "Bean Lara",
@@ -126,6 +116,16 @@
     "email": "jillgallegos@krag.com",
     "picture": "http://old.301-1.ru/gen-mems/img_mems/67ce7786cf69dd1fa3a9267d379b4ac4.jpg",
     "about": "Officia cupidatat adipisicing ad eu adipisicing cupidatat anim. Qui fugiat aute mollit enim non nulla amet ipsum. Elit proident laborum excepteur exercitation qui nisi cillum nostrud ipsum ad tempor.\r\n",
+    "age": 21,
+    "registered": "2015-12-15T12:40:09"
+  },
+  {
+    "_id": 13,
+    "tableId": 13,
+    "name": "A new test person",
+    "email": "test@test.com",
+    "picture": "http://old.301-1.ru/gen-mems/img_mems/67ce7786cf69dd1fa3a9267d379b4ac4.jpg",
+    "about": "test desc",
     "age": 21,
     "registered": "2015-12-15T12:40:09"
   }
