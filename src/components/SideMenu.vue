@@ -6,8 +6,8 @@
       <h3>Информация</h3>
       </template>
       <template v-else>
-      <div class="action">
-        <div class="arrow" @click.stop="closeProfile"></div>
+      <div class="action" @click.stop="closeProfile">
+        <div class="arrow"></div>
       </div>
       <h3>Профиль</h3>
       </template>
@@ -148,8 +148,8 @@ export default {
 .toolbar__header .action {
   cursor: pointer;
   margin-right: 14px;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
