@@ -1,119 +1,122 @@
 <template>
-<div class="menu" v-on-clickaway="closeProfile">
-  <div class="toolbar">
-    <div class="toolbar__header">
-      <template v-if="!isUserOpened">
-      <h3>Информация</h3>
-      </template>
-      <template v-else>
-      <div class="action" @click.stop="closeProfile">
-        <div class="arrow"></div>
+  <div class="menu" v-on-click-outside="closeProfile">
+    <div class="toolbar">
+      <div class="toolbar__header">
+        <template v-if="!isUserOpened">
+          <h3>Информация</h3>
+        </template>
+        <template v-else>
+          <div class="action" @click.stop="closeProfile">
+            <div class="arrow"></div>
+          </div>
+          <h3>Профиль</h3>
+        </template>
       </div>
-      <h3>Профиль</h3>
-      </template>
+      <div class="toolbar__actions"></div>
     </div>
-    <div class="toolbar__actions"></div>
-  </div>
-  <div v-if="!isLoading" class="content">
-    <div v-if="!isUserOpened" class="legend">
-      <div class="legend__data">
-        <div v-if="legend.length > 0" class="legend__items">
-          <Draggable v-model="legend">
-            <transition-group>
-              <LegendItem
+    <div v-if="!loader.isLoadingOrErrorState" class="content">
+      <div v-if="!isUserOpened" class="legend">
+        <div class="legend__data">
+          <div v-if="legend.length > 0" class="legend__items">
+            <Draggable v-model="legend">
+              <transition-group>
+                <LegendItem
                   v-for="item in legend"
                   :key="item.group_id"
                   :color="item.color"
                   :text="item.text"
                   :counter="item.counter"
                   class="legend__item"
-              />
-            </transition-group>
-          </Draggable>
+                />
+              </transition-group>
+            </Draggable>
+          </div>
+          <span v-else class="legend--empty"> Список пуст </span>
         </div>
-        <span v-else class="legend--empty"> Список пуст </span>
+        <div class="legend__chart">
+          <Doughnut v-if="legend.length > 0" :legend="legend" />
+        </div>
       </div>
-      <div class="legend__chart">
-        <Doughnut :legend="legend"/>
-      </div>
-    </div>
-    <div v-else class="profile">
-      <div v-if="!isUserExists" class="profile__empty">Место пустое</div>
+      <div v-else class="profile">
+        <div v-if="!isUserExists" class="profile__empty">Место пустое</div>
 
-      <PersonCard v-else :person="person"/>
+        <PersonCard v-else :person="person" />
+      </div>
     </div>
+    <div v-else>Loading...</div>
   </div>
-  <div v-else>Loading...</div>
-</div>
 </template>
 
 <script>
-import LegendItem from './SideMenu/LegendItem.vue';
-import PersonCard from './SideMenu/PersonCard.vue';
-import legend from '@/assets/data/legend.json';
-import draggable from 'vuedraggable';
-import Doughnut from './Doughnut.vue';
-import onClickaway from '@/directives/clickaway';
+import draggable from "vuedraggable";
+import onClickOutside from "@/directives/click-outside";
+import LoaderService from "@/services/loader";
+
+import LegendItem from "./SideMenu/LegendItem.vue";
+import PersonCard from "./SideMenu/PersonCard.vue";
+import Doughnut from "./Doughnut.vue";
+
+import legend from "@/assets/data/legend.json";
 
 export default {
-  name: 'SideMenu',
+  name: "SideMenu",
 
   components: {
     LegendItem,
     PersonCard,
     Draggable: draggable,
-    Doughnut
+    Doughnut,
   },
 
-  directives: { onClickaway },
+  directives: { onClickOutside },
 
   props: {
     person: {
       type: [Object, null],
-      default: null
-    }
+      default: null,
+    },
   },
 
-  data () {
+  data() {
     return {
-      isLoading: false,
-      legend: []
+      legend: [],
+      loader: new LoaderService(),
     };
   },
 
   computed: {
-    isUserOpened () {
+    isUserOpened() {
       return Boolean(this.person);
     },
 
-    isUserExists () {
-      return Boolean(Object.keys(this.person).length);
-    }
+    isUserExists() {
+      return this.person && this.person._id !== undefined;
+    },
   },
 
-  created () {
+  created() {
     this.loadLegend();
   },
 
   methods: {
-    loadLegend () {
-      this.isLoading = true;
+    async loadLegend() {
+      try {
+        const data = await this.loader.handleLoading(
+          new Promise((res) => {
+            setTimeout(() => res({ legend }), 1000);
+          })
+        );
 
-      new Promise((res) => {
-        setTimeout(() => {
-          this.legend = legend;
-
-          res(true);
-        }, 1000);
-      }).then(() => {
-        this.isLoading = false;
-      })
+        this.legend = data.legend;
+      } catch (e) {
+        console.warn(e);
+      }
     },
 
-    closeProfile () {
-      this.$emit('update:person', null);
-    }
-  }
+    closeProfile() {
+      this.$emit("update:person", null);
+    },
+  },
 };
 </script>
 

@@ -10,22 +10,22 @@
 
 <script>
 export default {
-  name: 'LegendItem',
+  name: "LegendItem",
 
   props: {
     color: {
       type: String,
-      default: '#fff'
+      default: "#fff",
     },
     text: {
       type: String,
-      required: true
+      required: true,
     },
     counter: {
       type: Number,
-      default: 0
-    }
-  }
+      default: 0,
+    },
+  },
 };
 </script>
 

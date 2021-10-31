@@ -17,20 +17,20 @@
 
 <script>
 export default {
-  name: 'PersonCard',
+  name: "PersonCard",
 
   props: {
     person: {
       type: Object,
-      default: null
-    }
+      default: null,
+    },
   },
 
   computed: {
     formatedDate() {
       return this.person.registered;
-    }
-  }
+    },
+  },
 };
 </script>
 

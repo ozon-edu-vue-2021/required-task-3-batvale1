@@ -6,10 +6,10 @@ export default {
       }
     };
 
-    document.body.addEventListener('click', el.clickOutsideEvent);
+    document.body.addEventListener("click", el.clickOutsideEvent);
   },
 
   unbind: function (el) {
-    document.body.removeEventListener('click', el.clickOutsideEvent);
-  }
+    document.body.removeEventListener("click", el.clickOutsideEvent);
+  },
 };

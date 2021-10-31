@@ -3,20 +3,20 @@
 </template>
 
 <script>
-import { Doughnut } from 'vue-chartjs';
+import { Doughnut } from "vue-chartjs";
 
 export default {
-  name: 'MyDoughnut',
+  name: "MyDoughnut",
 
   components: {
-    Doughnut
+    Doughnut,
   },
 
   props: {
     legend: {
       type: Array,
-      default: () => ([])
-    }
+      default: () => [],
+    },
   },
 
   mounted() {
@@ -30,19 +30,19 @@ export default {
         datasets: [
           {
             backgroundColor: this.legend.map((item) => item.color),
-            data: this.legend.map((item) => item.counter)
-          }
-        ]
+            data: this.legend.map((item) => item.counter),
+          },
+        ],
       };
       const options = {
         legend: {
-          display: false
-        }
+          display: false,
+        },
       };
 
       this.$refs.chart.renderChart(chartData, options);
-    }
-  }
+    },
+  },
 };
 </script>
 

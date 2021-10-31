@@ -1,33 +1,29 @@
 <template>
   <div id="app">
     <div class="office">
-      <Map
-        :person.sync="currentPerson"
-      />
-      <SideMenu
-        :person.sync="currentPerson"
-      />
+      <Map :person.sync="currentPerson" />
+      <SideMenu :person.sync="currentPerson" />
     </div>
   </div>
 </template>
 
 <script>
-import Map from './components/Map.vue';
-import SideMenu from './components/SideMenu.vue';
+import Map from "./components/Map.vue";
+import SideMenu from "./components/SideMenu.vue";
 
 export default {
-  name: 'App',
+  name: "App",
 
   components: {
     Map,
-    SideMenu
+    SideMenu,
   },
 
   data() {
     return {
-      currentPerson: null
+      currentPerson: null,
     };
-  }
+  },
 };
 </script>
 
