@@ -5,7 +5,6 @@
     <div v-if="!isLoading" class="map-root">
       <MapSvg ref="svg" />
       <TableSvg v-show="false" ref="table" />
-      <TableSvg fill="red"/>
     </div>
     <div v-else>Loading...</div>
   </div>
