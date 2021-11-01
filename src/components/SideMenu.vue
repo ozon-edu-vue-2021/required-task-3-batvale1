@@ -57,6 +57,8 @@ import PersonCard from "./SideMenu/PersonCard.vue";
 import Doughnut from "./Doughnut.vue";
 
 import legend from "@/assets/data/legend.json";
+import tables from "@/assets/data/tables.json";
+import people from "@/assets/data/people.json";
 
 export default {
   name: "SideMenu",
@@ -103,11 +105,27 @@ export default {
       try {
         const data = await this.loader.handleLoading(
           new Promise((res) => {
-            setTimeout(() => res({ legend }), 1000);
+            setTimeout(() => res({ legend, tables, people }), 1000);
           })
         );
 
-        this.legend = data.legend;
+        const tablesByGroup = data.tables.reduce((acc, item) => {
+          const isTableOccupied = data.people.find(person => person.tableId === item._id);
+
+          if (Object.prototype.hasOwnProperty.call(acc, item.group_id)) {
+            acc[item.group_id] += isTableOccupied ? 1 : 0;
+          } else {
+            acc[item.group_id] = isTableOccupied ? 1 : 0;
+          }
+
+          return acc;
+        }, {});
+
+        this.legend = data.legend.map((item) => {
+          item.counter = tablesByGroup[item.group_id];
+
+          return item;
+        });
       } catch (e) {
         console.warn(e);
       }
